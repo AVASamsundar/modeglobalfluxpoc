@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: depl-frontend
+spec:
+  selector:
+    matchLabels:
+      app: depl-frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: depl-frontend
+    spec:
+      containers:
+        - name: depl-frontend
+          image: docker.io/samsundar2001/dockerfilereact
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: depl-frontend-srv
+spec:
+  type: NodePort
+  selector:
+    app: depl-frontend
+  ports:
+    - name: depl-frontend
+      port: 3000
+      targetPort: 3000
